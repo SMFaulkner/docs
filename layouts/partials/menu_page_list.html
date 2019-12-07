@@ -1,15 +1,18 @@
 {{ if .Pages }}
     <li onclick="menu.openMenu()">
         <a href="#{{ .Params.anchor }}"  id="{{ .Params.anchor}}-link">{{ .Title }}</a>
-        <ul id="package-builder">
+        <ul>
+            <section id="package-builder-section">
             {{ if .Sections }}
                 {{ range .Sections.ByWeight }}
                     {{ partial "menu_page_list.html" . }}
                 {{ end }}
             {{ end }}
+  
             {{ range .Pages.ByWeight }}
                 <li><a href="{{.Site.BaseURL}}#{{ .Params.anchor }}" id="{{ .Params.anchor}}-link">{{ .Title }}</a></li>
             {{ end }}
+            </section>
         </ul>
     </li>
 {{ else }}
