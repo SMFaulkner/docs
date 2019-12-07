@@ -313,3 +313,7 @@ p.links-container {
     }
 }
 
+/* -- Nav changes by Shaun Faulkner -- */
+#package-builder {
+    display: none;
+}
