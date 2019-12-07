@@ -90,4 +90,23 @@ class Menu {
         (this.packageBuilder.style.display === "" || this.packageBuilder.style.display === "none") ? 
         "initial" : (this.packageBuilder.style.display === "initial") ? "none" : "none";
     }
+
+    /**
+     * Scrolls to top of Menu to see the logo when the user
+     * has moved their cursor above the top section of content.
+     * 
+     * Because using element.scrollToView() when browsing over
+     * content to push menu to the corresponding menu item,
+     * when you go the top section of content you scroll to 
+     * top menu item and never see the logo again after
+     * the initial page load, so added an empty section at
+     * the top of the page and then scrolls to the logo when
+     * browsing over this top most section.
+     * 
+     * @param {*} elementId 
+     */
+    topOfMenu(elementId) {
+        var menuTop = document.getElementById(elementId);
+        menuTop.scrollIntoView();
+    }
 }

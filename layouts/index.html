@@ -1,6 +1,7 @@
 {{ partial "head.html" . }}
 {{ partial "sidebar.html" . }}
 <div class="content">
+    <section id="page-top" onmouseover="menu.topOfMenu('menu-top')"></section>
     {{ with .Sections }}
         {{ range .ByWeight }}
             {{ partial "section_list.html" . }}

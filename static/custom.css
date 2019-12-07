@@ -313,7 +313,13 @@ p.links-container {
     }
 }
 
-/* -- Nav changes by Shaun Faulkner -- */
+/* --- Changes by Shaun Faulkner : 07/12/20191 --- */
+
+/* enable the hiding of submenu */
 #package-builder-section {
     display: none;
+}
+
+#page-top {
+    height: 20px;
 }
