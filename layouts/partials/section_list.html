@@ -1,0 +1,15 @@
+{{ if .Pages }}
+    {{ partial "section.html" . }}
+    <section id="package-builder-sub-content" onmouseover="menu.showMenu(this.id)" onmouseout="menu.hideMenu(this.id)">
+    {{ if .Sections }}
+        {{ range .Sections.ByWeight }}
+            {{ partial "section_list.html" . }}
+        {{ end }}=
+    {{ end }}
+        {{ range .Pages.ByWeight }}
+            {{ partial "section.html" . }}
+        {{ end }}
+    </section>
+{{ else }}
+    {{ partial "section.html" . }}
+{{ end }}
