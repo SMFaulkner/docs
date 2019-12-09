@@ -85,7 +85,7 @@ class Menu {
      * 
      * Else if it's value is "none", change it to "initial".
      */
-    openMenu() {
+    toggleMenu() {
         this.packageBuilder.style.display = 
         (this.packageBuilder.style.display === "" || this.packageBuilder.style.display === "none") ? 
         "initial" : (this.packageBuilder.style.display === "initial") ? "none" : "none";

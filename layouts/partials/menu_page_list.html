@@ -1,5 +1,5 @@
 {{ if .Pages }}
-    <li onclick="menu.openMenu()">
+    <li  onclick="menu.toggleMenu()">
         <a href="#{{ .Params.anchor }}"  id="{{ .Params.anchor}}-link">{{ .Title }}</a>
         <ul>
             <section id="package-builder-section">
