@@ -1,6 +1,6 @@
-<section class="page" id="{{ .Params.anchor }}" onmouseover="menu.selectMenuItem(this.id)" onmouseout="menu.unselectMenuItem(this.id)">
+<section class="page" id="{{ .Params.anchor }}" onmouseover="menu.selectSection(this.id)">
     <h1>
-        <a href="#{{ .Params.anchor }}">{{ .Title }}</a>
+        <a href="#{{ .Params.anchor }}" id="{{ .Params.anchor}}-title" onclick="menu.selectSection(this.id)">{{ .Title }}</a>
         <a href="{{ .Params.editlink }}"><i class="fas fa-edit"></i></a>
     </h1>
     <div class="content">

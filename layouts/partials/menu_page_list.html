@@ -1,6 +1,6 @@
 {{ if .Pages }}
-    <li  onclick="menu.toggleMenu()">
-        <a href="#{{ .Params.anchor }}"  id="{{ .Params.anchor}}-link">{{ .Title }}</a>
+    <li>
+        <a href="#{{ .Params.anchor }}"  id="{{ .Params.anchor}}-link" onclick="menu.toggleMenu()">{{ .Title }}</a>
         <ul>
             <section id="package-builder-section">
             {{ if .Sections }}
@@ -10,7 +10,7 @@
             {{ end }}
   
             {{ range .Pages.ByWeight }}
-                <li><a href="{{.Site.BaseURL}}#{{ .Params.anchor }}" id="{{ .Params.anchor}}-link">{{ .Title }}</a></li>
+                <li><a href="{{.Site.BaseURL}}#{{ .Params.anchor }}" id="{{ .Params.anchor}}-link" onclick="menu.selectSection(this.id)">{{ .Title }}</a></li>
             {{ end }}
             </section>
         </ul>

@@ -5,8 +5,9 @@
 class Menu {
 
     /**
-     * The constructor needs the "Package Builder" element 
-     * to have control of all it's submenu element.
+     * The constructor needs the section element, the 
+     * "package-builder-section" to have control of all 
+     * it's submenu element.
      * 
      * "Package Builder" is the parent element of the sub-menu
      * requiring extra controls.
@@ -14,99 +15,77 @@ class Menu {
      * @param {*} pbElement
      */
     constructor(pbElement) {
+        this.selectedItem = "";
+        this.hoverItem = "";
         this.packageBuilder = pbElement;
-    }
+        this.subMenuItems = [];
 
-    /**
-     * Highlights menu items being browsed.
-     * 
-     * Changes CSS style.color value to "#B0383C" for the 
-     * element with the provided id.
-     * 
-     * Only triggered when browsing over the main content
-     * 
-     * @param {*} elementId 
-     */
-    selectMenuItem(elementId) {
-        var menuItem = document.getElementById(elementId + "-link");
-        menuItem.style.color = "#B0383C";
-        menuItem.scrollIntoView();
-    }
-
-    /**
-     * Un-highlights menu items being browsed.
-     * 
-     * Changes CSS style.color value to "#2854A0" for the 
-     * element with the provided id.
-     * 
-     * Only triggered when browsing over the main content
-     * 
-     * @param {*} elementId 
-     */
-    unselectMenuItem(elementId) {
-        var menuItem = document.getElementById(elementId + "-link");
-        menuItem.style.color = "#2854A0";
-    }
-
-    /**
-     * Displays the submenu under "Package Builder" when browsing away
-     * from it's section within the main content.
-     * 
-     * Changes CSS style.display value to "initial" when the user 
-     * scrolls over the section (id="package-builder-section") 
-     * area.
-     */
-    showMenu() {
-        if (this.packageBuilder.style.display === "" || this.packageBuilder.style.display === "none") {
-            this.packageBuilder.style.display = "initial";
+        /* Dynamically get array of submenu anchors */
+        var sectionsArray = Array.prototype.slice.call(document.getElementById("package-builder-section").children)
+        for (var child of sectionsArray) {
+            var childId = child.children[0].hash.replace("#", "");
+            this.subMenuItems.push([childId, childId+"-link", childId+"-title"]);
         }
-    }
-    
-    /**
-     * Hides the submenu under "Package Builder" when browsing away
-     * from it's section within the main content.
-     * 
-     * Changes CSS style.display value to "none" when the user 
-     * scrolls out of the section (id="package-builder-section") 
-     * area.
-     */
-    hideMenu() {
-        if (this.packageBuilder.style.display === "initial") {
-            this.packageBuilder.style.display = "none";
-        }
+        
     }
 
-    /**
-     * Opens and closes the "Package Builder sub menu onclick;
-     * When a user clicks the menu item "Package Builder"
-     * 
-     * If the menu item "Package Builder" has its style
-     * display set to "inital", change it's value to "none"
-     * 
-     * Else if it's value is "none", change it to "initial".
-     */
     toggleMenu() {
         this.packageBuilder.style.display = 
         (this.packageBuilder.style.display === "" || this.packageBuilder.style.display === "none") ? 
         "initial" : (this.packageBuilder.style.display === "initial") ? "none" : "none";
     }
 
-    /**
-     * Scrolls to top of Menu to see the logo when the user
-     * has moved their cursor above the top section of content.
-     * 
-     * Because using element.scrollToView() when browsing over
-     * content to push menu to the corresponding menu item,
-     * when you go the top section of content you scroll to 
-     * top menu item and never see the logo again after
-     * the initial page load, so added an empty section at
-     * the top of the page and then scrolls to the logo when
-     * browsing over this top most section.
-     * 
-     * @param {*} elementId 
-     */
-    topOfMenu(elementId) {
-        var menuTop = document.getElementById(elementId);
-        menuTop.scrollIntoView();
+    isSubItem(elementId) {
+        var subSection = false;
+        this.subMenuItems.forEach(lst => (lst.includes(elementId)) ? subSection = true : null);
+        return subSection;
+    }
+
+    cleanElementId(elementId) {
+        return elementId.replace("-link", "").replace("-title", "");
+    }
+
+    selectSection(elementId) {
+        this.reset();
+
+        this.selectedItem = this.cleanElementId(elementId);
+
+        if (this.isSubItem(this.selectedItem)) {
+            this.showMenu();
+            document.getElementById(this.selectedItem+"-link").style.color = "#B0383C";
+            document.getElementById(this.selectedItem+"-title").style.color = "#B0383C";
+        } else {
+            this.hideMenu(this.selectedItem);
+            document.getElementById(this.selectedItem+"-link").style.color = "#B0383C";
+            document.getElementById(this.selectedItem+"-title").style.color = "#B0383C";
+        }
+    }
+
+    reset() {
+        if (this.selectedItem !== "") {
+            document.getElementById(this.selectedItem+"-link").style.color = "#2854A0";
+            document.getElementById(this.selectedItem+"-title").style.color = "#2854A0";
+        }
+        this.selectedItem = "";
+
+        // reset submenu items color
+        this.subMenuItems.forEach(item => document.getElementById(item[1]).style.color = "#2854A0");
+
+        // reset subsection title color
+        this.subMenuItems.forEach(item => document.getElementById(item[2]).style.color = "#2854A0");
+    }
+
+   // Temp
+    showMenu() {
+        this.packageBuilder.style.display = "initial";
+    }
+
+    hideMenu(elementId) {
+        var link = false;
+        this.subMenuItems.forEach(item => item.includes(elementId) ? true : null);
+
+        if (!link) {
+            this.packageBuilder.style.display = "none";
+        }   
     }
 }
